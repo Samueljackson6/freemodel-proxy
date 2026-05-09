@@ -1,0 +1,17 @@
+[Unit]
+Description=FreeModel Proxy Server - Chat Completions to Responses API
+After=network.target
+
+[Service]
+Type=simple
+User=samuel
+WorkingDirectory=/home/samuel/.openclaw/workspace/dev_agent/freemodel-proxy
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=10
+Environment=PORT=38080
+# Set FREEMODEL_KEY in /etc/systemd/system/freemodel-proxy.service.d/override.conf
+# or use EnvironmentFile=/path/to/.env
+
+[Install]
+WantedBy=multi-user.target

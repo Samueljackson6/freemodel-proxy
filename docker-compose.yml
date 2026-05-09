@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  freemodel-proxy:
+    build: .
+    ports:
+      - "38080:38080"
+    environment:
+      - FREEMODEL_KEY=${FREEMODEL_KEY}
+      - PORT=38080
+    volumes:
+      - proxy-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  proxy-data:
