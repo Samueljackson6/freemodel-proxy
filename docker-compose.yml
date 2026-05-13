@@ -7,7 +7,10 @@ services:
       - "38080:38080"
     environment:
       - FREEMODEL_KEY=${FREEMODEL_KEY}
+      - PROXY_API_KEY=${PROXY_API_KEY}
+      - REQUIRE_PROXY_AUTH=${REQUIRE_PROXY_AUTH:-true}
       - PORT=38080
+      - DB_PATH=/app/data/proxy_stats.db
     volumes:
       - proxy-data:/app/data
     restart: unless-stopped

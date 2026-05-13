@@ -1,15 +1,28 @@
 {
   "name": "freemodel-proxy",
-  "version": "1.0.0",
-  "description": "Responses API proxy for FreeModel - converts Chat Completions API to Responses API",
+  "version": "4.1.0",
+  "description": "High-performance FreeModel API proxy with monitoring, retry, caching, and rate limiting",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node test.js"
   },
   "dependencies": {
+    "abort-controller": "^3.0.0",
     "better-sqlite3": "^9.4.3",
     "express": "^4.18.2",
     "node-fetch": "^2.7.0"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "proxy",
+    "openai",
+    "freemodel",
+    "api",
+    "monitoring"
+  ],
+  "license": "MIT"
 }

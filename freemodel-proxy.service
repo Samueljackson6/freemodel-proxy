@@ -1,17 +1,52 @@
 [Unit]
-Description=FreeModel Proxy Server - Chat Completions to Responses API
-After=network.target
+Description=FreeModel Proxy Server - High Performance API Proxy
+Documentation=https://github.com/Samueljackson6/freemodel-proxy
+After=network.target network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
 
 [Service]
 Type=simple
 User=samuel
+Group=samuel
 WorkingDirectory=/home/samuel/.openclaw/workspace/dev_agent/freemodel-proxy
+
+# 主进程
 ExecStart=/usr/bin/node server.js
-Restart=on-failure
-RestartSec=10
+
+# 环境变量
+Environment=NODE_ENV=production
 Environment=PORT=38080
-# Set FREEMODEL_KEY in /etc/systemd/system/freemodel-proxy.service.d/override.conf
-# or use EnvironmentFile=/path/to/.env
+
+# 从文件加载敏感配置
+EnvironmentFile=-/home/samuel/.openclaw/workspace/dev_agent/freemodel-proxy/.env
+
+# 重启策略
+Restart=always
+RestartSec=10
+
+# 资源限制
+LimitNOFILE=65535
+MemoryMax=200M
+CPUQuota=50%
+
+# 安全加固
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+# ProtectHome=yes 会阻止访问 /home 目录
+# ReadWritePaths=/home/samuel/.openclaw/workspace/dev_agent/freemodel-proxy
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=freemodel-proxy
+
+# 优雅关闭
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30
 
 [Install]
 WantedBy=multi-user.target
